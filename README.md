@@ -1,2 +1,2 @@
-# space-arcade-template
-Space arcade style game template
+# space-arcade
+Space arcade style game example
