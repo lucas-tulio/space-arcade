@@ -16,15 +16,32 @@ public class CollisionDetector {
 	}
 	
 	public void update(Player player, ArrayList<Monster> monsters) {
-		// Player vs Monster collision
 		for (Monster monster : monsters) {
-			if (player.getX() < monster.getX() + monster.getWidth() &&
-					player.getX() + player.getWidth() > monster.getX() &&
-					player.getY() < monster.getY() + monster.getHeight() &&
-					player.getY() + player.getHeight() > monster.getY()) {
+			// Player vs Monsters collision
+			if (rectCollision(player, monster)) {
 				listener.monsterHitPlayer();
 			}
+			
+			// Lasers vs Monsters collision
+			for (Laser laser : player.getLasers()) {
+				if (rectCollision(laser, monster)) {
+					listener.laserHitMonster(monster);
+				}
+			}
 		}
+	}
+	
+	/**
+	 * Check rectangle collision
+	 * @param rect1
+	 * @param rect2
+	 * @return
+	 */
+	private boolean rectCollision(Entity rect1, Entity rect2) {
+		return rect1.getX() <= rect2.getX() + rect2.getWidth() &&
+				rect1.getX() + rect1.getWidth() >= rect2.getX() &&
+				rect1.getY() <= rect2.getY() + rect2.getHeight() &&
+				rect1.getY() + rect1.getHeight() >= rect2.getY();
 	}
 
 	public CollisionDetectorListener getListener() {

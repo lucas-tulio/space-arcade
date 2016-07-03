@@ -1,5 +1,7 @@
 package com.lucasdnd.spacearcade;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -42,11 +44,23 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	@Override
 	public void laserHitMonster(Monster monster) {
 		player.incrementScore();
+		monster.setDead(true);
 	}
 	
 	public void update() {
 		player.update(input);
 		monsterSpawner.update();
+		
+		// Remove dead monsters
+		ArrayList<Monster> deadMonsters = new ArrayList<Monster>();
+		for (Monster m : monsterSpawner.getMonsters()) {
+			if (m.isDead()) {
+				deadMonsters.add(m);
+			}
+		}
+		monsterSpawner.getMonsters().removeAll(deadMonsters);
+		
+		// Update the remaining ones
 		for (Monster m : monsterSpawner.getMonsters()) {
 			m.update(input);
 		}

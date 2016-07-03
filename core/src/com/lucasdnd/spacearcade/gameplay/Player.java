@@ -114,4 +114,7 @@ public class Player extends Entity {
 	public void incrementScore() {
 		this.score += 10;
 	}
+	public ArrayList<Laser> getLasers() {
+		return lasers;
+	}
 }
