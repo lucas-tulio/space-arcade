@@ -54,6 +54,10 @@ public class InputHandler implements InputProcessor, ControllerListener {
 		} else if (keycode == Keys.W) {
 			shieldPressed = true;
 		}
+		
+		if (keycode == Keys.ENTER) {
+			startJustPressed = true;
+		}
 	
 		return false;
 	}

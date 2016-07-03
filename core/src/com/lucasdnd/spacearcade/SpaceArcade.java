@@ -62,7 +62,6 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	public void update() {
 		// Start
 		if (input.isStartJustPressed()) {
-			System.out.println("Pressed start");
 			startGame();
 		}
 		
