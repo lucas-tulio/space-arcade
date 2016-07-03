@@ -20,6 +20,7 @@ public class Player extends Entity {
 	private final int MAX_LASERS = 3;
 	private boolean dead;
 	private int score = 0;
+	private final float MARGIN = 2f;
 	
 	public Player() {
 		sprite = Resources.get().player;
@@ -27,7 +28,7 @@ public class Player extends Entity {
 		y = 20f;
 		width = sprite.getWidth();
 		height = sprite.getHeight();
-		speed = 3f;
+		speed = 5f;
 		lasers = new ArrayList<Laser>();
 	}
 
@@ -38,15 +39,15 @@ public class Player extends Entity {
 		}
 		
 		// Movement
-		if (input.upPressed) {
+		if (input.upPressed && y < Gdx.graphics.getHeight() - height) {
 			y += speed;
-		} else if (input.downPressed) {
+		} else if (input.downPressed && y > 0) {
 			y -= speed;
 		}
 		
-		if (input.rightPressed) {
+		if (input.rightPressed && x < Gdx.graphics.getWidth() - width - MARGIN) {
 			x += speed;
-		} else if (input.leftPressed) {
+		} else if (input.leftPressed && x > MARGIN) {
 			x -= speed;
 		}
 		
@@ -60,7 +61,7 @@ public class Player extends Entity {
 				// Perform your action here
 				// Resources.get().laserSound.play();
 				if (lasers.size() < MAX_LASERS) {
-					lasers.add(new Laser(x + width / 2f - 2f, y));
+					lasers.add(new Laser(x + width / 2f - MARGIN, y));
 				}
 				
 				input.applyActionDelay();

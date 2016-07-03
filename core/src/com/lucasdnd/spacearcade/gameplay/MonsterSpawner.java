@@ -19,6 +19,8 @@ public class MonsterSpawner {
 	private float spawnTime = 0;
 	private final float MAX_SPAWN_TIME = 60;
 	
+	private final int RIGHT_MARGIN = 24;
+	
 	public MonsterSpawner() {
 		monsters = new ArrayList<Monster>();
 	}
@@ -27,7 +29,7 @@ public class MonsterSpawner {
  		spawnTime += spawnSpeed;
 		if (spawnTime > MAX_SPAWN_TIME) {
 			spawnTime = 0;
-			float randomX = new Random().nextInt(Gdx.graphics.getWidth());
+			float randomX = new Random().nextInt(Gdx.graphics.getWidth() - RIGHT_MARGIN);
 			monsters.add(new Monster(randomX, currentMonsterSpeed));
 		}
 	}
