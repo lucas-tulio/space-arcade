@@ -19,7 +19,7 @@ public class SpaceArcade extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		font = new FontUtils();
-		ship = Resources.get().playerShip;
+		ship = Resources.get().player;
 		input = new InputHandler();
 		Gdx.input.setInputProcessor(input);
 		speed = 3f;

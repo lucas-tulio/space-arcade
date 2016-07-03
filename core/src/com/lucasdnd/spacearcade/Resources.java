@@ -23,15 +23,22 @@ public class Resources {
 	private Resources() {
 		pressStart = new BitmapFont(Gdx.files.internal("font/press-start.fnt"));
 //		laserSound = Gdx.audio.newSound(Gdx.files.internal("sfx/laser.ogg"));
-		playerShip =  new Texture("badlogic.jpg");
+		player =  new Texture("gfx/player.png");
+		laser = new Texture("gfx/laser.png");
+		monsters = new Texture[6];
+		for (int i = 0; i < monsters.length; i++) {
+			monsters[i] = new Texture("gfx/monster-" + (i + 1) + ".png");
+		}
 	}
 	
 	// Fonts
 	public BitmapFont pressStart;
 	
 	// Sound effects
-	public Sound laser;
+	public Sound laserSound;
 	
 	// Sprites
-	public Texture playerShip; 
+	public Texture player; 
+	public Texture[] monsters;
+	public Texture laser;
 }
