@@ -1,5 +1,6 @@
 package com.lucasdnd.spacearcade.gameplay;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lucasdnd.spacearcade.InputHandler;
@@ -16,6 +17,8 @@ public class Player extends Entity {
 	
 	public Player() {
 		sprite = Resources.get().player;
+		x = Gdx.graphics.getWidth() / 2f - (sprite.getWidth() / 2f);
+		y = 20f;
 		speed = 3f;
 	}
 
