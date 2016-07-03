@@ -4,12 +4,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Align;
+import com.lucasdnd.spacearcade.gameplay.CollisionDetector;
+import com.lucasdnd.spacearcade.gameplay.CollisionDetectorListener;
 import com.lucasdnd.spacearcade.gameplay.Monster;
 import com.lucasdnd.spacearcade.gameplay.MonsterSpawner;
 import com.lucasdnd.spacearcade.gameplay.Player;
 
-public class SpaceArcade extends ApplicationAdapter {
+public class SpaceArcade extends ApplicationAdapter implements CollisionDetectorListener {
 	// System objects
 	SpriteBatch batch;
 	InputHandler input;
@@ -18,6 +19,7 @@ public class SpaceArcade extends ApplicationAdapter {
 	// Gamplay objects
 	Player player;
 	MonsterSpawner monsterSpawner;
+	CollisionDetector collisionDetector;
 	
 	@Override
 	public void create () {
@@ -26,8 +28,20 @@ public class SpaceArcade extends ApplicationAdapter {
 		input = new InputHandler();
 		Gdx.input.setInputProcessor(input);
 		
+		// Game objects
 		player = new Player();
 		monsterSpawner = new MonsterSpawner();
+		collisionDetector = new CollisionDetector(this);
+	}
+	
+	@Override
+	public void monsterHitPlayer() {
+		player.setDead(true);
+	}
+
+	@Override
+	public void laserHitMonster(Monster monster) {
+		player.incrementScore();
 	}
 	
 	public void update() {
@@ -36,6 +50,7 @@ public class SpaceArcade extends ApplicationAdapter {
 		for (Monster m : monsterSpawner.getMonsters()) {
 			m.update(input);
 		}
+		collisionDetector.update(player, monsterSpawner.getMonsters());
 	}
 
 	@Override
@@ -44,11 +59,13 @@ public class SpaceArcade extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		// Game objects
 		player.render(batch);
 		for (Monster m : monsterSpawner.getMonsters()) {
 			m.render(batch);
 		}
 		
-		font.drawWhiteFont("PRESS START", 0f, Gdx.graphics.getHeight(), Align.center, Gdx.graphics.getWidth());
+		// Text
+		font.drawWhiteFont("SCORE: " + player.getScore(), 8f, Gdx.graphics.getHeight() - 8f);
 	}
 }

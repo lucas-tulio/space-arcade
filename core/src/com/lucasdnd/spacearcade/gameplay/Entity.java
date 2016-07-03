@@ -9,7 +9,7 @@ import com.lucasdnd.spacearcade.InputHandler;
  *
  */
 public abstract class Entity {
-	protected float x, y, speed;
+	protected float x, y, width, height, speed;
 	public abstract void update(InputHandler input);
 	public abstract void render(SpriteBatch batch);
 	public float getX() {
@@ -23,6 +23,18 @@ public abstract class Entity {
 	}
 	public void setY(float y) {
 		this.y = y;
+	}
+	public float getWidth() {
+		return width;
+	}
+	public void setWidth(float width) {
+		this.width = width;
+	}
+	public float getHeight() {
+		return height;
+	}
+	public void setHeight(float height) {
+		this.height = height;
 	}
 	public float getSpeed() {
 		return speed;
