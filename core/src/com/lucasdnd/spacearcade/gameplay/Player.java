@@ -1,5 +1,7 @@
 package com.lucasdnd.spacearcade.gameplay;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +16,8 @@ import com.lucasdnd.spacearcade.Resources;
 public class Player extends Entity {
 	
 	private Texture sprite;
+	private ArrayList<Laser> lasers;
+	private final int MAX_LASERS = 3;
 	private boolean dead;
 	private int score = 0;
 	
@@ -24,6 +28,7 @@ public class Player extends Entity {
 		width = sprite.getWidth();
 		height = sprite.getHeight();
 		speed = 3f;
+		lasers = new ArrayList<Laser>();
 	}
 
 	@Override
@@ -54,9 +59,26 @@ public class Player extends Entity {
 				
 				// Perform your action here
 				// Resources.get().laserSound.play();
+				if (lasers.size() < MAX_LASERS) {
+					lasers.add(new Laser(x + width / 2f - 2f, y));
+				}
 				
 				input.applyActionDelay();
 			}
+		}
+		
+		// Lasers
+		ArrayList<Laser> lasersToRemove = new ArrayList<Laser>();
+		for (Laser laser : lasers) {
+			laser.update(input);
+			if (laser.getY() >= Gdx.graphics.getHeight()) {
+				lasersToRemove.add(laser);				
+			}
+		}
+		
+		// Remove lasers that left the screen
+		for (Laser laser : lasersToRemove) {
+			lasers.remove(laser);
 		}
 	}
 
@@ -67,6 +89,9 @@ public class Player extends Entity {
 		}
 		batch.begin();
 		batch.draw(sprite, x, y);
+		for (Laser laser : lasers) {
+			laser.render(batch);
+		}
 		batch.end();
 	}
 

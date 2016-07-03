@@ -17,7 +17,7 @@ public class MonsterSpawner {
 	private float currentMonsterSpeed = 3f;
 	private float spawnSpeed = 1;
 	private float spawnTime = 0;
-	private float MAX_SPAWN_TIME = 60;
+	private final float MAX_SPAWN_TIME = 60;
 	
 	public MonsterSpawner() {
 		monsters = new ArrayList<Monster>();

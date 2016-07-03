@@ -14,7 +14,7 @@ import com.lucasdnd.spacearcade.Resources;
 public class Monster extends Entity {
 	
 	private Texture[] textures;
-	private int MAX_SPRITE_TIME = 60;
+	private final int MAX_SPRITE_TIME = 60;
 	private int spriteTime, currentTexture;
 	
 	public Monster(float x, float speed) {
