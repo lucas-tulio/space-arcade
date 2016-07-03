@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.lucasdnd.spacearcade.gameplay.CollisionDetector;
 import com.lucasdnd.spacearcade.gameplay.CollisionDetectorListener;
 import com.lucasdnd.spacearcade.gameplay.Entity;
@@ -32,7 +33,13 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 		input = new InputHandler();
 		Gdx.input.setInputProcessor(input);
 		
-		// Game objects
+		startGame();
+	}
+	
+	/**
+	 * Starts a new game
+	 */
+	private void startGame() {
 		player = new Player();
 		monsterSpawner = new MonsterSpawner();
 		collisionDetector = new CollisionDetector(this);
@@ -53,6 +60,12 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	}
 	
 	public void update() {
+		// Start
+		if (input.isStartJustPressed()) {
+			System.out.println("Pressed start");
+			startGame();
+		}
+		
 		player.update(input);
 		monsterSpawner.update(player.getScore());
 		
@@ -76,6 +89,8 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 			m.update(input);
 		}
 		collisionDetector.update(player, monsterSpawner.getMonsters());
+		
+		input.flush();
 	}
 
 	@Override
@@ -92,5 +107,9 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 		
 		// Text
 		font.drawWhiteFont("SCORE: " + player.getScore(), 8f, Gdx.graphics.getHeight() - 8f);
+		
+		if (player.isDead()) {
+			font.drawWhiteFont("PRESS START", 0f, Gdx.graphics.getHeight() / 2f, Align.center, Gdx.graphics.getWidth());
+		}
 	}
 }

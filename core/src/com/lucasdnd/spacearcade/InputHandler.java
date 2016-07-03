@@ -25,6 +25,13 @@ public class InputHandler implements InputProcessor, ControllerListener {
 		Controllers.addListener(this);
 	}
 	
+	/**
+	 * Release the key states
+	 */
+	public void flush() {
+		startJustPressed = false;
+	}
+	
 	public void applyActionDelay() {
 		actionDelay = maxActionDelay;
 	}
@@ -203,9 +210,5 @@ public class InputHandler implements InputProcessor, ControllerListener {
 
 	public boolean isStartJustPressed() {
 		return startJustPressed;
-	}
-
-	public void setStartJustPressed(boolean startJustPressed) {
-		this.startJustPressed = startJustPressed;
 	}
 }
