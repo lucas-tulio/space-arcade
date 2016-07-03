@@ -27,4 +27,4 @@ Includes all features from [Base Template](https://github.com/libgdx-examples/ba
 
 This project is a free software, licensed under the GNU GPL v3 terms.
 
-Sprites from Space Invaders, sound effects created with (Bfxr)[http://www.bfxr.net/].
+Sprites from Space Invaders, sound effects created with [Bfxr](http://www.bfxr.net/).
