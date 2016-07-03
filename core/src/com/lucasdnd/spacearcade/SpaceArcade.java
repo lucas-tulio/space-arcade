@@ -40,11 +40,13 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	
 	@Override
 	public void monsterHitPlayer() {
+		Resources.get().explosionSound.play();
 		player.setDead(true);
 	}
 
 	@Override
 	public void laserHitMonster(Laser laser, Monster monster) {
+		Resources.get().hitSound.play();
 		player.incrementScore();
 		monster.setDead(true);
 		laser.setDead(true);

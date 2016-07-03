@@ -22,7 +22,11 @@ public class Resources {
 	
 	private Resources() {
 		pressStart = new BitmapFont(Gdx.files.internal("font/press-start.fnt"));
-//		laserSound = Gdx.audio.newSound(Gdx.files.internal("sfx/laser.ogg"));
+		
+		laserSound = Gdx.audio.newSound(Gdx.files.internal("sfx/laser.wav"));
+		hitSound = Gdx.audio.newSound(Gdx.files.internal("sfx/hit.wav"));
+		explosionSound = Gdx.audio.newSound(Gdx.files.internal("sfx/explosion.wav"));
+		
 		player =  new Texture("gfx/player.png");
 		laser = new Texture("gfx/laser.png");
 		monsters = new Texture[6];
@@ -35,7 +39,7 @@ public class Resources {
 	public BitmapFont pressStart;
 	
 	// Sound effects
-	public Sound laserSound;
+	public Sound laserSound, hitSound, explosionSound;
 	
 	// Sprites
 	public Texture player; 

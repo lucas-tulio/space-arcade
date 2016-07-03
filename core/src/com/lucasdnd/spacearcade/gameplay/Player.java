@@ -59,8 +59,8 @@ public class Player extends Entity {
 			if (input.firePressed) {
 				
 				// Perform your action here
-				// Resources.get().laserSound.play();
 				if (lasers.size() < MAX_LASERS) {
+					Resources.get().laserSound.play();
 					lasers.add(new Laser(x + width / 2f - MARGIN, y));
 				}
 				
