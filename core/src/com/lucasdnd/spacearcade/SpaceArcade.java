@@ -3,55 +3,31 @@ package com.lucasdnd.spacearcade;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.lucasdnd.spacearcade.gameplay.Player;
 
 public class SpaceArcade extends ApplicationAdapter {
+	// System objects
 	SpriteBatch batch;
-	Texture ship;
 	InputHandler input;
 	FontUtils font;
 	
-	float x, y, speed;
+	// Gamplay objects
+	Player player;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		font = new FontUtils();
-		ship = Resources.get().player;
 		input = new InputHandler();
 		Gdx.input.setInputProcessor(input);
-		speed = 3f;
+		
+		player = new Player();
 	}
 	
 	public void update() {
-		// Movement
-		if (input.upPressed) {
-			y += speed;
-		} else if (input.downPressed) {
-			y -= speed;
-		}
-		
-		if (input.rightPressed) {
-			x += speed;
-		} else if (input.leftPressed) {
-			x -= speed;
-		}
-		
-		// Action key
-		input.actionDelay--;
-		if (input.actionDelay <= 0) {
-			input.actionDelay = 0;
-
-			if (input.firePressed) {
-				
-				// Perform your action here
-//				Resources.get().laserSound.play();
-				
-				input.applyActionDelay();
-			}
-		}
+		player.update(input);
 	}
 
 	@Override
@@ -60,9 +36,7 @@ public class SpaceArcade extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		batch.begin();
-		batch.draw(ship, x, y);
-		batch.end();
+		player.render(batch);
 		
 		font.drawWhiteFont("PRESS START", 0f, Gdx.graphics.getHeight(), Align.center, Gdx.graphics.getWidth());
 	}
