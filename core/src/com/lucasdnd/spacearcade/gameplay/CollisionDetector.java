@@ -17,16 +17,20 @@ public class CollisionDetector {
 	
 	public void update(Player player, ArrayList<Monster> monsters) {
 		for (Monster monster : monsters) {
-			// Player vs Monsters collision
-			if (rectCollision(player, monster)) {
-				listener.monsterHitPlayer();
-			}
-			
 			// Lasers vs Monsters collision
 			for (Laser laser : player.getLasers()) {
 				if (rectCollision(laser, monster)) {
 					listener.laserHitMonster(laser, monster);
 				}
+			}
+			
+			if (player.isDead()) {
+				return;
+			}
+			
+			// Player vs Monsters collision
+			if (rectCollision(player, monster)) {
+				listener.monsterHitPlayer();
 			}
 		}
 	}
