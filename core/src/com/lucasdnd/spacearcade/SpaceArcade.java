@@ -26,6 +26,8 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	MonsterSpawner monsterSpawner;
 	CollisionDetector collisionDetector;
 	
+	boolean paused;
+	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -61,8 +63,15 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	
 	public void update() {
 		// Start
-		if (input.isStartJustPressed()) {
+		if (input.isStartJustPressed() && player.isDead()) {
 			startGame();
+		} else if (input.isStartJustPressed() && player.isDead() == false) {
+			paused = !paused;
+		}
+		
+		if (paused) {
+			input.flush();
+			return;
 		}
 		
 		player.update(input);
@@ -88,8 +97,8 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 			m.update(input);
 		}
 		collisionDetector.update(player, monsterSpawner.getMonsters());
-		
 		input.flush();
+		
 	}
 
 	@Override
@@ -109,6 +118,10 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 		
 		if (player.isDead()) {
 			font.drawWhiteFont("PRESS START", 0f, Gdx.graphics.getHeight() / 2f, Align.center, Gdx.graphics.getWidth());
+		}
+		
+		if (paused) {
+			font.drawWhiteFont("PAUSED", 0f, Gdx.graphics.getHeight() / 2f, Align.center, Gdx.graphics.getWidth());
 		}
 	}
 }
