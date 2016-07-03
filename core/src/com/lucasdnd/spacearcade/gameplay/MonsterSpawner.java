@@ -14,10 +14,10 @@ import com.badlogic.gdx.Gdx;
 public class MonsterSpawner {
 	
 	private ArrayList<Monster> monsters;
-	private float currentMonsterSpeed = 3f;
-	private float spawnSpeed = 1;
-	private float spawnTime = 0;
-	private final float MAX_SPAWN_TIME = 60;
+	private float monsterSpeed = 3f;
+	private float spawnSpeed = 1f;
+	private float spawnTime = 0f;
+	private final float MAX_SPAWN_TIME = 60f;
 	
 	private final int RIGHT_MARGIN = 24;
 	
@@ -25,12 +25,17 @@ public class MonsterSpawner {
 		monsters = new ArrayList<Monster>();
 	}
 	
-	public void update() {
+	public void update(int score) {
+		// Update difficulty according to score
+		spawnSpeed = 1f + score / 200f;
+		monsterSpeed = 3f + score / 200f;
+		
+		// Spawn monsters
  		spawnTime += spawnSpeed;
 		if (spawnTime > MAX_SPAWN_TIME) {
 			spawnTime = 0;
 			float randomX = new Random().nextInt(Gdx.graphics.getWidth() - RIGHT_MARGIN);
-			monsters.add(new Monster(randomX, currentMonsterSpeed));
+			monsters.add(new Monster(randomX, monsterSpeed));
 		}
 	}
 
@@ -40,21 +45,5 @@ public class MonsterSpawner {
 
 	public void setMonsters(ArrayList<Monster> monsters) {
 		this.monsters = monsters;
-	}
-
-	public float getCurrentMonsterSpeed() {
-		return currentMonsterSpeed;
-	}
-
-	public void setCurrentMonsterSpeed(float currentMonsterSpeed) {
-		this.currentMonsterSpeed = currentMonsterSpeed;
-	}
-
-	public float getSpawnSpeed() {
-		return spawnSpeed;
-	}
-
-	public void setSpawnSpeed(float spawnSpeed) {
-		this.spawnSpeed = spawnSpeed;
 	}
 }

@@ -8,6 +8,7 @@ import com.lucasdnd.spacearcade.Resources;
 public class Laser extends Entity {
 	
 	private Texture sprite;
+	private boolean dead;
 	
 	public Laser(float x, float y) {
 		this.x = x;
@@ -26,4 +27,11 @@ public class Laser extends Entity {
 		batch.draw(sprite, x, y);
 	}
 
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
+	}
 }

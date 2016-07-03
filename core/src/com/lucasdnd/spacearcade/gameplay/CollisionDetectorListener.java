@@ -7,5 +7,5 @@ package com.lucasdnd.spacearcade.gameplay;
  */
 public interface CollisionDetectorListener {
 	public void monsterHitPlayer();
-	public void laserHitMonster(Monster monster);
+	public void laserHitMonster(Laser laser, Monster monster);
 }

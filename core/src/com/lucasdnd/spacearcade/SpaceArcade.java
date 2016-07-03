@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lucasdnd.spacearcade.gameplay.CollisionDetector;
 import com.lucasdnd.spacearcade.gameplay.CollisionDetectorListener;
+import com.lucasdnd.spacearcade.gameplay.Entity;
+import com.lucasdnd.spacearcade.gameplay.Laser;
 import com.lucasdnd.spacearcade.gameplay.Monster;
 import com.lucasdnd.spacearcade.gameplay.MonsterSpawner;
 import com.lucasdnd.spacearcade.gameplay.Player;
@@ -42,23 +44,30 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 	}
 
 	@Override
-	public void laserHitMonster(Monster monster) {
+	public void laserHitMonster(Laser laser, Monster monster) {
 		player.incrementScore();
 		monster.setDead(true);
+		laser.setDead(true);
 	}
 	
 	public void update() {
 		player.update(input);
-		monsterSpawner.update();
+		monsterSpawner.update(player.getScore());
 		
-		// Remove dead monsters
-		ArrayList<Monster> deadMonsters = new ArrayList<Monster>();
+		// Remove dead Entities
+		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
 		for (Monster m : monsterSpawner.getMonsters()) {
 			if (m.isDead()) {
-				deadMonsters.add(m);
+				deadEntities.add(m);
 			}
 		}
-		monsterSpawner.getMonsters().removeAll(deadMonsters);
+		for (Laser l : player.getLasers()) {
+			if (l.isDead()) {
+				deadEntities.add(l);
+			}
+		}
+		monsterSpawner.getMonsters().removeAll(deadEntities);
+		player.getLasers().removeAll(deadEntities);
 		
 		// Update the remaining ones
 		for (Monster m : monsterSpawner.getMonsters()) {

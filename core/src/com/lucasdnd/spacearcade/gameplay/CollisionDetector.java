@@ -25,7 +25,7 @@ public class CollisionDetector {
 			// Lasers vs Monsters collision
 			for (Laser laser : player.getLasers()) {
 				if (rectCollision(laser, monster)) {
-					listener.laserHitMonster(monster);
+					listener.laserHitMonster(laser, monster);
 				}
 			}
 		}
