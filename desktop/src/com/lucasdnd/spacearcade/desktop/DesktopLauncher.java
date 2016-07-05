@@ -9,6 +9,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 640; // 160 * 4
 		config.height = 576; // 144 * 4
+		config.foregroundFPS = 60;
+		config.vSyncEnabled = true;
 		new LwjglApplication(new SpaceArcade(), config);
 	}
 }

@@ -21,6 +21,8 @@ public class Player extends Entity {
 	private boolean dead;
 	private int score = 0;
 	private final float MARGIN = 2f;
+	private final float BASE_SPEED = 5f;
+	private final float MAX_SPEED = 7f;
 	
 	public Player() {
 		sprite = Resources.get().player;
@@ -28,7 +30,7 @@ public class Player extends Entity {
 		y = 20f;
 		width = sprite.getWidth();
 		height = sprite.getHeight();
-		speed = 5f;
+		speed = BASE_SPEED;
 		lasers = new ArrayList<Laser>();
 	}
 
@@ -36,6 +38,12 @@ public class Player extends Entity {
 	public void update(InputHandler input) {
 		if (dead) {
 			return;
+		}
+		
+		// Increase speed with score
+		speed = BASE_SPEED + score * 0.0025f;
+		if (speed > MAX_SPEED) {
+			speed = MAX_SPEED;
 		}
 		
 		// Movement

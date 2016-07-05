@@ -70,7 +70,6 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 		}
 		
 		if (paused) {
-			input.flush();
 			return;
 		}
 		
@@ -97,13 +96,13 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 			m.update(input);
 		}
 		collisionDetector.update(player, monsterSpawner.getMonsters());
-		input.flush();
-		
 	}
 
 	@Override
 	public void render () {
 		update();
+		input.flush();
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -117,7 +116,7 @@ public class SpaceArcade extends ApplicationAdapter implements CollisionDetector
 		font.drawWhiteFont("SCORE: " + player.getScore(), 8f, Gdx.graphics.getHeight() - 8f);
 		
 		if (player.isDead()) {
-			font.drawWhiteFont("PRESS START", 0f, Gdx.graphics.getHeight() / 2f, Align.center, Gdx.graphics.getWidth());
+			font.drawWhiteFont("GAME OVER", 0f, Gdx.graphics.getHeight() / 2f, Align.center, Gdx.graphics.getWidth());
 		}
 		
 		if (paused) {

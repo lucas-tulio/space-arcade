@@ -26,7 +26,7 @@ public class InputHandler implements InputProcessor, ControllerListener {
 	}
 	
 	/**
-	 * Release the key states
+	 * Release the key states											
 	 */
 	public void flush() {
 		startJustPressed = false;
